@@ -30,7 +30,7 @@ const log = baselog.configure({ locate: false, time: true }); // removes the cod
   await Promise.all(sites.map((site) => site.submit()));
 
   log.bright.green('Ready for publishing.');
-  log.bright.green('Start to publish the sites.', '\n');
+  log.bright.green('Publishing sites, please wait...', '\n');
 
   const allStartTime = new Date();
 
@@ -42,7 +42,7 @@ const log = baselog.configure({ locate: false, time: true }); // removes the cod
       const time: number = endTime.getTime() - requestStartTimes[id];
       allUsedTimes.push(time);
       log.green(`Request ID ${id} finished. Code: ${res.statusCode}`);
-      log.cyan(`Time used (mm:ss.ms): ${msToTime(time)}`, '\n');
+      log.green(`Time used (mm:ss.ms): ${msToTime(time)}`, '\n');
       // 如果需要固定并发数，那就在一个 callback 跑完后，由 callback 启动下一个并发
       // 用 if 判断当前id是否超限，可以继续启动下一个并发
       // 如果id超限，则不继续执行。类似递归的行为。由函数传入id来追踪进程
@@ -56,11 +56,11 @@ const log = baselog.configure({ locate: false, time: true }); // removes the cod
       allUsedTimes.reduce((x, y) => x + y) / createSiteRequests,
     )}`, '\n');
 
-  log.cyan(`percentage of time used < than (${P90timeLimitInSeconds} secs): ${
+  log.cyan(`percentage of time used < than ${P90timeLimitInSeconds} secs: ${
       (allUsedTimes.filter((e) => e < P90timeLimitInSeconds * 1000).length / allUsedTimes.length) * 100
     }%`);
 
-  log.bright.blue('\nBenchmark program end.');
+  log.bright.blue('Benchmark program end.');
 
   // update the storage id
   await CurrentStorageIdStartup.set(storageIdStartup + createSiteRequests);

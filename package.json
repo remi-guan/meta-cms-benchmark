@@ -1,6 +1,6 @@
 {
   "name": "@metaio/meta-cms-benchmark",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "E2E benchmark scripts for Meta CMS Backend",
   "license": "MIT",
   "keywords": [
