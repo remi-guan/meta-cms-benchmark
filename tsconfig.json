@@ -1,0 +1,19 @@
+{
+  "exclude": ["test", "dist"],
+  "compilerOptions": {
+    "declaration": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./*"],
+      "src/*": ["./src/*"]
+    },
+    "module": "commonjs",
+    "moduleResolution": "node"
+  }
+}
