@@ -1,5 +1,4 @@
 import axios from 'axios';
-import as
 import { accessToken } from 'src/config';
 
 const instance = axios.create({
