@@ -1,9 +1,21 @@
-export function msToTime(duration: number) {
-  const milliseconds = Math.floor((duration % 1000) / 100);
-  let seconds: string | number = Math.floor((duration / 1000) % 60);
-  let minutes: string | number = Math.floor((duration / (1000 * 60)) % 60);
+export const accessToken: string = ;
+export const githubUsername: string = 'remi-crystal';
+export const defaultSitePrefix: string = 'bench';
 
-  minutes = minutes < 10 ? `0${minutes}` : minutes;
-  seconds = seconds < 10 ? `0${seconds}` : seconds;
-  return `${minutes}:${seconds}.${milliseconds}`;
-}
+export const concurrencyLimit: number = 5;
+export const createSiteRequests: number = 5;
+export const P90timeLimitInSeconds: number = 120;
+
+export const storageIdFileName: string = 'storageIdStartFrom';
+
+export const siteSetting = {
+  title: 'My Blog',
+  subtitle: 'Hello from my blog',
+  author: 'RemiCrystal',
+  description: '这是一些描述',
+  keywords: ['test', 'dev', 'remi'],
+  language: 'zh',
+  timezone: 'Asia/Shanghai',
+  favicon:
+    'https://storageapi.fleek.co/andoroyur-team-bucket/metanetwork/users/metaio-storage/e1eb05bd4446aa76957e49a0acb03817.ico',
+};

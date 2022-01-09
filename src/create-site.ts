@@ -1,5 +1,8 @@
-import { siteSetting, githubUsername } from 'src/config';
+import dotenv from 'dotenv';
+import { siteSetting } from 'src/config';
 import MetaCMSAxios from './axios-requests';
+
+dotenv.config();
 
 export default class Site {
   public configId: number = null;
@@ -18,7 +21,7 @@ export default class Site {
 
     const storeSetting = {
       storage: 'GitHub',
-      username: githubUsername,
+      username: process.env.GITHUB_USERNAME,
       repos: {
         storeRepo: `meta-space-${this.sitePrefix}-${this.storageId}`,
         publishRepo: `meta-space-${this.sitePrefix}-published-${this.storageId}`,

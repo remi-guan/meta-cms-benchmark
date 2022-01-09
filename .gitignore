@@ -111,3 +111,6 @@ lib/
 
 # TypeDoc output
 /docs
+
+# storage file
+storageIdStartFrom

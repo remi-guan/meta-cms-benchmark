@@ -1,9 +1,6 @@
-export const accessToken: string = '';
-export const githubUsername: string = '';
-export const defaultSitePrefix: string = 'bench';
-
 export const concurrencyLimit: number = 5;
-export const createSiteRequests: number = 5;
+export const createSiteRequests: number = 1;
+export const defaultSitePrefix: string = 'bench';
 export const P90timeLimitInSeconds: number = 120;
 
 export const storageIdFileName: string = 'storageIdStartFrom';

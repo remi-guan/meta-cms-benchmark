@@ -1,11 +1,13 @@
 import axios from 'axios';
-import { accessToken } from 'src/config';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const instance = axios.create({
   baseURL: 'https://meta-cms-api-dev.mttk.net',
   withCredentials: true,
   headers: {
-    Cookie: `ucenter_access_token=${accessToken};`,
+    Cookie: `ucenter_access_token=${process.env.ACCESS_TOKEN}`,
     'Content-Type': 'application/json',
   },
 });

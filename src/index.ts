@@ -1,14 +1,11 @@
-// noinspection ES6UnusedImports
-
 import baselog from 'ololog';
 import Site from 'src/create-site';
-import { msToTime } from 'src/utils';
-import CurrentStorageIdStartup from 'src/current-storage-id-startup';
 import {
   createSiteRequests,
   defaultSitePrefix,
   P90timeLimitInSeconds,
 } from 'src/config';
+import { msToTime, CurrentStorageIdStartup } from './utils';
 
 const log = baselog.configure({ locate: false, time: true }); // removes the code location tag
 
@@ -17,12 +14,11 @@ const log = baselog.configure({ locate: false, time: true }); // removes the cod
 
   const sites: Site[] = [];
 
-  const allStartTime = new Date();
   const allUsedTimes: number[] = [];
   const requestStartTimes: { [key: number]: number } = {};
 
-  log.blue.bright('Benchmark program started.');
-  log.blue(`Requests to be made: ${createSiteRequests}`, '\n');
+  log.blue.bright('Benchmark program started.', '\n');
+  log.blue(`Requests to be made: ${createSiteRequests}`);
   log.blue('Submitting data to make ready for publishing...', '\n');
 
   for (let id = storageIdStartup; id < storageIdStartup + createSiteRequests; id++) {
@@ -33,9 +29,10 @@ const log = baselog.configure({ locate: false, time: true }); // removes the cod
   // execute submitting requests
   await Promise.all(sites.map((site) => site.submit()));
 
-  log.bright.green('Ready for publishing.', '\n');
+  log.bright.green('Ready for publishing.');
+  log.bright.green('Start to publish the sites.', '\n');
 
-  log.bright.green('Start to publish the sites.');
+  const allStartTime = new Date();
 
   await Promise.all(sites.map((site) => {
     const id = site.configId;
@@ -52,20 +49,18 @@ const log = baselog.configure({ locate: false, time: true }); // removes the cod
     });
   }));
 
-  log.bright.blue('\nAll requests are done.');
+  log.bright.blue('All requests are done.');
+
   log.cyan(`Full time used (mm:ss.ms): ${msToTime(new Date().getTime() - allStartTime.getTime())}`);
-  log.cyan(
-    `Average time used (mm:ss.ms): ${msToTime(
+  log.cyan(`Average time used (mm:ss.ms): ${msToTime(
       allUsedTimes.reduce((x, y) => x + y) / createSiteRequests,
-    )}`,
-    '\n',
-  );
-  log.cyan(
-    `Requests time used are lower than the time limit (${P90timeLimitInSeconds} secs) percentage: ${
+    )}`, '\n');
+
+  log.cyan(`percentage of time used < than (${P90timeLimitInSeconds} secs): ${
       (allUsedTimes.filter((e) => e < P90timeLimitInSeconds * 1000).length / allUsedTimes.length) * 100
-    }%`, '\n',
-  );
-  log.bright.blue('Benchmark program end.');
+    }%`);
+
+  log.bright.blue('\nBenchmark program end.');
 
   // update the storage id
   await CurrentStorageIdStartup.set(storageIdStartup + createSiteRequests);
